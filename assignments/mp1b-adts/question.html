@@ -1,0 +1,264 @@
+
+<!--
+This file was auto-generated using the generateCodingQuestion script.
+
+Changes to this file will get removed when generateCodingQuestion
+re-generates this file!  To edit this quesiton, edit quesiton.md and
+then re-generate this file.
+-->
+<pl_question_panel>
+  <h4>Check your Repository</h4>
+
+  <p>
+    An initial setup of files is provided to you via your git repository.
+    Look for a directory called <code>mps/mp1b-atds</code>.
+  </p>
+
+  <hr>
+
+  <h4 id="mp1bbasichaskellatds">MP1b - Basic Haskell - ATDs</h4>
+<h4 id="objectives">Objectives</h4>
+<p>We will be using Haskell throughout the course to implement other programming
+languages. That being said, the focus of this course is <em>not</em> on Haskell, but
+rather on studying programming languages in general. You need to understand
+basic Haskell before we can proceed with the rest of the course though; this MP
+will test that understanding.</p>
+<h5 id="goals">Goals</h5>
+<ul>
+<li>Write recursive functions and definitions.</li>
+<li>Implement some set-theoretic functionality using Haskell lists.</li>
+<li>Use higher-order functions to compactly represent common code patterns.</li>
+<li>Use and write Algebraic Data Types (ADTs) with some associated operators.</li>
+</ul>
+<h5 id="usefulreading">Useful Reading</h5>
+<p>If you are stuck on some problems, perhaps it's time to read some of <a href="http://learnyouahaskell.com/chapters">Learn You
+a Haskell for Great Good</a>. I would
+recommend reading the whole book eventually, but if you're crunched for time
+Chapter 3 on Types and Typeclasses, Chapter 4 on Syntax in Functions, and
+Chapter 8 on Making Your Own Types and Typeclases seem the most relevant. If
+you're still stuck on recursion problems, check out Chapter 5 on Recursion.</p>
+<h4 id="gettingstarted">Getting Started</h4>
+<h5 id="relevantfiles">Relevant Files</h5>
+<p>In the directory <code>src</code> you'll find <code>Lib.hs</code> with all the relevant code. The
+first line <code>module Lib where</code> says that what follows (the rest of the file in
+this case) belongs to the <code>Lib</code> module. Haskell has a module system which
+allows for extensive code re-use. Saying something like <code>import Data.List</code>
+imports the <code>List</code> module, for example.</p>
+<pre><code class=" {.haskell} language- {.haskell}">module Lib where
+
+main :: IO ()
+main = return ()
+</code></pre>
+<h5 id="runningcode">Running Code</h5>
+<p>To run your code, start GHCi with <code>stack ghci</code>:</p>
+<pre><code class=" {.sh} language- {.sh}">$ stack ghci
+ - more output -
+Ok, modules loaded: Lib.
+*Lib&gt;
+</code></pre>
+<p>Your prompt may be slightly different.</p>
+<h5 id="testingyourcode">Testing Your Code</h5>
+<p>You can run the test-suite provided you have supplied type declarations for each
+function and have provided the Algebraic Data Types at the end of the
+problem-set correctly. To do so, just run <code>stack test</code></p>
+<pre><code class=" {.sh} language- {.sh}">$ stack test
+</code></pre>
+<p>It will tell you which test-suites you pass, fail, and have exceptions on. To
+see an individual test-suite (so you can run the tests yourself by hand to see
+where the failure happens), look in the file <code>test/Tests.hs</code>.</p>
+<h5 id="icantdoproblemx">I Can't Do Problem X</h5>
+<p>You can ask for help on Piazza or in office hours. If you're really stuck and
+don't have time to fix it, you <em>must</em> still put in the type declaration and
+define it as <code>undefined</code> so that it still compiles with our autograder. Not
+doing so will result in loss of extra points from your total score. Remember
+that course policy is that code which doesn't compile receives a zero.</p>
+<p>For example, if you cannot complete problem <code>app :: [a] -&gt; [a] -&gt; [a]</code>, make
+sure you put the following code into your submission:</p>
+<pre><code class=" {.haskell} language- {.haskell}">app :: [a] -&gt; [a] -&gt; [a]
+app = undefined
+</code></pre>
+<h4 id="problems">Problems</h4>
+<p>Builtins:
+:   In general you cannot use the Haskell built-in functions. Especially if we
+    say that a function "should behave exactly like the Haskell built-in", <em>you
+    cannot use that Haskell built-in</em>.</p>
+<p>Pattern-matching:
+:   You should try to use pattern-matching whenever possible (it's more
+    efficient and easier to read). If you are using the functions\
+    <code>fst :: (a,b) -&gt; a</code> or <code>snd :: (a,b) -&gt; b</code> (for tuples)\
+    <code>head :: [a] -&gt; a</code> or <code>tail :: [a] -&gt; [a]</code> (for lists)\
+    chances are you can do it with pattern matching. We will take off points if
+    you use built-ins when it's possible to pattern-match.</p>
+<p>Helpers:
+:   You may write your own helper functions (inside or outside a
+    <code>where</code> clause). All the restrictions about allowable code (no
+    built-ins/using pattern matching) still apply to your helper functions.</p>
+<h5 id="algebraicdatatypes">Algebraic Data Types</h5>
+<p>If you haven't already you may want to read Chapter 8 of Learn you a Haskell,
+<a href="http://learnyouahaskell.com/making-our-own-types-and-typeclasses">Making Our Own Types and
+Typeclasses</a>.
+If Chapter 8 is a little bit over your head, try out Chapter 3 <a href="http://learnyouahaskell.com/types-and-typeclasses">Types and
+Typeclasses</a> first.</p>
+<p>We won't be making any Typeclasses in this MP, but we will be using and making
+Types. Specifically, we'll be making Algebraic Data Types, because that's what
+Haskell supports. Below are two Algebraic Data Types we supply for you to use in
+this assignment.</p>
+<pre><code class=" {.haskell} language- {.haskell}">data List a = Cons a (List a)
+            | Nil
+  deriving (Show, Eq)
+
+data Exp = IntExp Integer
+         | PlusExp [Exp]
+         | MultExp [Exp]
+  deriving (Show, Eq)
+</code></pre>
+<p>The above code declares two new <em>type constructors</em>, <code>List</code> and <code>Exp</code>. <code>List</code> is
+a type constructor that takes one type as an argument (for example, if you said
+<code>List Int</code> that would be a different type than <code>List String</code> or <code>List Double</code>).
+<code>Exp</code> takes no type arguments.</p>
+<p>It also declares several <em>data constructors</em>, two for <code>List a</code> and three for
+<code>Exp</code>. Their types are given below:</p>
+<pre><code class=" {.haskell} language- {.haskell}">-- List data constructors
+Cons :: a -&gt; List a -&gt; List a
+Nil  :: List a
+
+-- Exp data constructors
+IntExp  :: Integer -&gt; Exp
+PlusExp :: [Exp] -&gt; Exp
+MultExp :: [Exp] -&gt; Exp
+</code></pre>
+<p>Notice how the above type declarations are written as if the data constructors
+are <em>functions</em>. In fact, you can think of them as functions! <code>Cons</code> is a
+function that takes two arguments, (an <code>a</code> and a <code>List a</code>) and constructs a
+<code>List a</code>. If that doesn't make sense to you, perhaps you need to read Chapters 3
+and 8 of Learn You a Haskell as mentioned above.</p>
+<p>The nice thing about algebraic data-constructors is that we can <em>pattern match</em>
+on them (see Chapter 4 of Learn You a Haskell for pattern matching). Suppose we
+wanted to make a function <code>double :: List Int -&gt; List Int</code> which doubles each
+element of the input list. We can just ask ourselves "what should we do for each
+of the ways that a <code>List Int</code> can be constructed?"</p>
+<pre><code class=" {.haskell} language- {.haskell}">double :: List Int -&gt; List Int
+double Nil        = Nil
+double (Cons i l) = Cons (2*i) (double l)
+</code></pre>
+<p>Notice here that I've told Haskell "if the list is constructed as a <code>Nil</code>, then
+just produce <code>Nil</code> again" (this is the base-case). I've also told Haskell, "if
+the list is constructed as a <code>Cons i l</code> (where <code>i :: Int</code>, <code>l :: List Int</code>),
+then multiply the <code>i</code> by <code>2</code> and <code>double</code> the rest of the list" (the recursive
+case). Because I've <em>exhausted</em> all of the data-constructors for <code>List Int</code>, I
+<em>know</em> that Haskell will be able to apply <code>double</code> to any <code>List Int</code>. If you get
+a "non-exhaustive patterns" error, it means you haven't told Haskell how to
+handle all of the ways something of your input type can be constructed.</p>
+<p>You'll be writing a few functions which manipulate the ADTs given above.</p>
+<h6 id="list2cons">list2cons</h6>
+<p>Write a function <code>list2cons :: [a] -&gt; List a</code> which converts a Haskell list into
+our <code>List</code> type. Do this recursively (not using higher-order functions).</p>
+<pre><code class=" {.haskell} language- {.haskell}">*Lib&gt; list2cons []
+Nil
+*Lib&gt; list2cons [3,2,5]
+Cons 3 (Cons 2 (Cons 5 Nil))
+*Lib&gt; list2cons ["hello", "world"]
+Cons "hello" (Cons "world" Nil)
+*Lib&gt; list2cons "hello"
+Cons 'h' (Cons 'e' (Cons 'l' (Cons 'l' (Cons 'o' Nil))))
+</code></pre>
+<h6 id="cons2list">cons2list</h6>
+<p>Write a function <code>cons2list :: List a -&gt; [a]</code> which converts our <code>List</code> type
+into the Haskell list type. Do this recursively.</p>
+<pre><code class=" {.haskell} language- {.haskell}">*Lib&gt; cons2list Nil
+[]
+*Lib&gt; cons2list (Cons 3 (Cons 4 Nil))
+[3,4]
+*Lib&gt; cons2list (Cons "goodbye" (Cons "world" Nil))
+["goodbye", "world"]
+</code></pre>
+<h6 id="eval">eval</h6>
+<p>Write a function <code>eval :: Exp -&gt; Integer</code> which evaluates the integer expression
+represented by its input. You may use recursion and higher-order functions.</p>
+<pre><code class=" {.haskell} language- {.haskell}">*Lib&gt; eval (IntExp 3)
+3
+*Lib&gt; eval (PlusExp [])
+0
+*Lib&gt; eval (MultExp [])
+1
+*Lib&gt; eval (PlusExp [MultExp [IntExp 3, IntExp 5], PlusExp [IntExp 3], IntExp 5])
+23
+*Lib&gt; eval (MultExp [IntExp 3, IntExp 45, IntExp (-2), PlusExp [IntExp 2, IntExp 5]])
+-1890
+</code></pre>
+<h6 id="list2cons-1">list2cons'</h6>
+<p>Write a function <code>list2cons' :: [a] -&gt; List a</code> which converts a Haskell list
+into our <code>List</code> type. You are required to use higher-order functions for this,
+<em>no recursion</em>.</p>
+<pre><code class=" {.haskell} language- {.haskell}">*Lib&gt; list2cons' []
+Nil
+*Lib&gt; list2cons' [3,2,5]
+Cons 3 (Cons 2 (Cons 5 Nil))
+*Lib&gt; list2cons' ["hello", "world"]
+Cons "hello" (Cons "world" Nil)
+*Lib&gt; list2cons' "hello"
+Cons 'h' (Cons 'e' (Cons 'l' (Cons 'l' (Cons 'o' Nil))))
+</code></pre>
+<h6 id="bintree">BinTree</h6>
+<p>Write an ADT <code>BinTree a</code> which represents a binary tree that stores things of
+type <code>a</code> at internal nodes, and stores nothing at the leaves.</p>
+<p>You must add <code>deriving (Show)</code> to the <code>data</code> declaration so that GHCi can print
+your datatype (as we've done above for <code>List a</code> and <code>Exp</code>). Not doing so will
+result in a loss of points.</p>
+<p>The data-constructors must have the following types (and names):</p>
+<pre><code class=" {.haskell} language- {.haskell}">Node :: a -&gt; BinTree a -&gt; BinTree a -&gt; BinTree a
+Leaf :: BinTree a
+</code></pre>
+<h6 id="sumtree">sumTree</h6>
+<p>Write a function <code>sumTree :: Num a =&gt; BinTree a -&gt; a</code> which takes a <code>BinTree a</code>
+(where <code>a</code> is a <code>Num</code>) from the previous problem and sums all the elements of
+its nodes.</p>
+<pre><code class=" {.haskell} language- {.haskell}">*Lib&gt; sumTree Leaf
+0
+*Lib&gt; sumTree (Node 3 Leaf (Node 5 (Node 8 Leaf Leaf) Leaf))
+16
+*Lib&gt; sumTree (Node (-4) Leaf Leaf)
+-4
+</code></pre>
+<h6 id="simpval">SimpVal</h6>
+<p>Write an ADT <code>SimpVal</code> which represents the values that a simple programming
+language can have. We'll have <code>IntVal</code> for integers, <code>BoolVal</code> for booleans,
+<code>StrVal</code> for strings, and <code>ExnVal</code> for exceptions.</p>
+<p>You must add <code>deriving (Show)</code> to the <code>data</code> declaration so that GHCi can print
+your datatype (as we've done above for <code>List a</code> and <code>Exp</code>). Not doing so will
+result in a loss of points.</p>
+<p>The data-constructors must have the following types (and names):</p>
+<pre><code class=" {.haskell} language- {.haskell}">IntVal  :: Integer -&gt; SimpVal
+BoolVal :: Bool    -&gt; SimpVal
+StrVal  :: String  -&gt; SimpVal
+ExnVal  :: String  -&gt; SimpVal
+</code></pre>
+<h6 id="liftintop">liftIntOp</h6>
+<p>Write a function\
+<code>liftIntOp :: (Integer -&gt; Integer -&gt; Integer) -&gt; SimpVal -&gt; SimpVal -&gt; SimpVal</code>\
+which will take an operator over integers (like
+<code>(+) :: Integer -&gt; Integer -&gt; Integer</code>) and turn it into an operator over
+<code>SimpVal</code>s. If the inputs are not <code>IntVal</code>, raise an exception by returning
+<code>ExnVal "not an IntVal!"</code>.</p>
+<pre><code class=" {.haskell} language- {.haskell}">*Lib&gt; liftIntOp (+) (IntVal 3) (IntVal 4)
+IntVal 7
+*Lib&gt; liftIntOp (*) (IntVal 2) (IntVal (-5))
+IntVal (-10)
+*Lib&gt; liftIntOp (+) (BoolVal True) (IntVal 3)
+ExnVal "not an IntVal!"
+*Lib&gt; liftIntOp (+) (IntVal 5) (StrVal "hello")
+ExnVal "not an IntVal!"
+*Lib&gt; liftIntOp (+) (StrVal "hello") (ExnVal "not an IntVal!")
+ExnVal "not an IntVal!"
+</code></pre>
+
+  <hr>
+
+  <h4>Upload Solution</h4>
+  <pl_file_upload file_names="Lib.hs" />
+</pl_question_panel>
+
+<pl_submission_panel>
+  <pl_file_preview />
+  <pl_external_grader_results />
+</pl_submission_panel>

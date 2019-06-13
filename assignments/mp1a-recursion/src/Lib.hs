@@ -4,10 +4,19 @@
 --- Relevant Files
 --- --------------
 
-module Main where
+module Lib where
 
-main :: IO ()
-main = return ()
+-- This line imports the Prelude module without certain functions
+import Prelude hiding ( take, drop, reverse
+                      , zip, zipWith
+                      , map, foldl, foldr
+                      , iterate, repeat
+                      , replicate, cycle
+                      , (++)
+                      )
+-- When you are allowed to use builtin functions Prepend them with "P."
+-- for example `P.take`
+import qualified Prelude as P
 
 --- Problems
 --- ========
@@ -105,53 +114,3 @@ inclist' = undefined
 
 -- don't forget to put the type declaration or you will lose points!
 sumlist' = undefined
-
---- Algebraic Data Types
---- --------------------
-
-data List a = Cons a (List a)
-            | Nil
-  deriving (Show, Eq)
-
-data Exp = IntExp Integer
-         | PlusExp [Exp]
-         | MultExp [Exp]
-  deriving (Show, Eq)
-
---- ### list2cons
-
--- don't forget to put the type declaration or you will lose points!
-list2cons = undefined
-
---- ### cons2list
-
--- don't forget to put the type declaration or you will lose points!
-cons2list = undefined
-
---- ### eval
-
--- don't forget to put the type declaration or you will lose points!
-eval = undefined
-
---- ### list2cons'
-
--- don't forget to put the type declaration or you will lose points!
-list2cons' = undefined
-
---- ### BinTree
-
--- BinTree
-
---- ### sumTree
-
--- don't forget to put the type declaration or you will lose points!
-sumTree = undefined
-
---- ### SimpVal
-
--- SimpVal
-
---- ### liftIntOp
-
--- don't forget to put the type declaration or you will lose points!
-liftIntOp = undefined

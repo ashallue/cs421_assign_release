@@ -1,12 +1,12 @@
-MP1 - Basic Haskell
+MP1 - Basic Haskell 
 ===================
 
 Logistics
 ---------
 
--   revision: 1.0
--   given: June 7, 2017
--   due: June 14, 2017 23:59
+-   revision: 2.0
+-   given: Jan 25, 2019
+-   due: Feb 4, 2019 23:59
 
 Objectives
 ==========
@@ -20,10 +20,17 @@ will test that understanding.
 Goals
 -----
 
--   Write recursive functions and definitions.
--   Implement some set-theoretic functionality using Haskell lists.
--   Use higher-order functions to compactly represent common code patterns.
--   Use and write Algebraic Data Types (ADTs) with some associated operators.
+-   Part 1:
+    -   Write recursive functions and definitions.
+    -   Implement some set-theoretic functionality using Haskell lists.
+    -   Use higher-order functions to compactly represent common code patterns.
+-   Part 2: Use and write Algebraic Data Types (ADTs) with some associated 
+    operators.
+    -   Manipulate linked lists and simple arithmetic expressions defined using 
+        ADTs
+    -   Define a binary tree ADT and implement a function on binary trees.
+    -   Define a constant value ADT for a simple programming language and a 
+        higher order function to manipulate those values.
 
 Useful Reading
 --------------
@@ -41,18 +48,13 @@ Getting Started
 Relevant Files
 --------------
 
-In the directory `app` you'll find `Main.hs` with all the relevant code. The
-first line `module Main where` says that what follows (the rest of the file in
-this case) belongs to the `Main` module. Haskell has a module system which
-allows for extensive code re-use. Saying something like `import Data.List`
-imports the `List` module, for example.
+In the directory `recursion/src` you'll find `Lib.hs` with all the relevant code
+for Part 1. In the directory `adt/src` you'll find a file of the same name with 
+all the relevant code for Part 2. In each file, the first line `module Lib where`
+says that what follows (the rest of the file in this case) belongs to the `Lib` 
+module. Haskell has a module system which allows for extensive code re-use.
+Saying something like `import Data.List` imports the `List` module, for example.
 
-``` {.haskell}
-module Main where
-
-main :: IO ()
-main = return ()
-```
 
 Running Code
 ------------
@@ -68,16 +70,29 @@ To run your code, start GHCi with `stack ghci`:
 ``` {.sh}
 $ stack ghci
  - more output -
-Ok, modules loaded: Main.
-*Main>
+Ok, modules loaded: Lib.
+*Lib>
 ```
 
 Testing Your Code
 -----------------
 
-You can run the test-suite provided you have supplied type declarations for each
-function and have provided the Algebraic Data Types at the end of the
-problem-set correctly. To do so, just run `stack test`
+You can run the test-suite as you fill in the solutions for Part 1.
+
+The following ensures the file will type-check, but the 
+corresponding `myFunction` test will fail.
+
+``` {.haskell}
+myFunction = undefined
+```
+
+In Part 2, you must supply the Algebraic Data Type declarations at the end of the
+problem-set correctly in order to compile the tests.  If you are having trouble with
+one declaration in particular, use the interpreter to define and debug each ADT 
+individually.
+
+In each part, the test suite is compiled and executed by running `stack test`
+in the project directory. `recursion` and `adt` for parts 1 and 2 respectively.
 
 ``` {.sh}
 $ stack test
@@ -111,6 +126,12 @@ Builtins:
 :   In general you cannot use the Haskell built-in functions. Especially if we
     say that a function "should behave exactly like the Haskell built-in", *you
     cannot use that Haskell built-in*.
+    __If you modify or remove the following two import statements your submission 
+    will not be scored!__
+    ```{.haskell}
+    import qualified Prelude as P
+    import Prelude hiding ( take, drop, ... etc ...
+    ```
 
 Pattern-matching:
 :   You should try to use pattern-matching whenever possible (it's more
@@ -124,6 +145,10 @@ Helpers:
 :   You may write your own helper functions (inside or outside a
     `where` clause). All the restrictions about allowable code (no
     built-ins/using pattern matching) still apply to your helper functions.
+    
+Part 1: Recursion and Higher-Order Functions
+============================================
+> _include your definitions for the following problems in `recursion/src/Lib.hs`_
 
 Recursion
 ---------
@@ -428,6 +453,10 @@ of the input list.
 *Main> sumlist' [3.3,2.8,-1.2]
 4.8999999999999995
 ```
+
+Part 2: Algebraic Data Types
+============================
+> _include your definitions for the following problems in `adt/src/Lib.hs`_
 
 Algebraic Data Types
 --------------------

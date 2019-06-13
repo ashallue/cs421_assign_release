@@ -1,0 +1,17 @@
+{
+  "uuid": "411e3509-37ab-4005-be29-552e5704f460",
+  "title": "MP 1b - Basic Haskell - ADTs",
+  "topic": "Functional Programming",
+  "tags": [],
+  "type": "v3",
+  "singleVariant": true,
+  "gradingMethod": "External",
+  "externalGradingOptions": {
+    "enabled": true,
+    "image": "mattox/haskell-prairielearn",
+    "serverFilesCourse": [
+      "haskell-grader/"
+    ],
+    "entrypoint": "/grade/shared/haskell-grader/run-qc.sh"
+  }
+}
