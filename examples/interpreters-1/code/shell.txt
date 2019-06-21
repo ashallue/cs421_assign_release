@@ -1,0 +1,19 @@
+Restarting process ...
+Your wish is my IO ().
+If I break, you can:
+  1. Restart:           M-x haskell-process-restart
+  2. Configure logging: C-h v haskell-process-log (useful for debugging)
+  3. General config:    M-x customize-mode
+  4. Hide these tips:   C-h v haskell-process-show-debug-tips
+Changed directory: /home/mattox/class/cs421/periods/closures/code/
+λ> :l i7b.hs
+[1 of 1] Compiling Main             ( i7b.hs, interpreted )
+Ok, modules loaded: Main.
+λ> repl []
+interpreter> let [ x = 10 y = 20 ] in x + y end
+IntVal 30
+interpreter> fun x y -> x + y end @ 20 @ 30
+IntVal 50
+interpreter> let [plus = fun x y -> x + y end] in let [inc = plus @ 1] in inc @ 10 end end
+IntVal 11
+interpreter> 
