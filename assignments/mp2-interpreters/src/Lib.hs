@@ -84,7 +84,8 @@ compOps = H.fromList [ ("<", (<))
 --- -----------------
 
 liftIntOp :: (Int -> Int -> Int) -> Val -> Val -> Val
-liftIntOp = undefined
+liftIntOp op (IntVal x) (IntVal y) = IntVal $ op x y
+liftIntOp _ _ _ = ExnVal "Cannot lift"
 
 liftBoolOp :: (Bool -> Bool -> Bool) -> Val -> Val -> Val
 liftBoolOp = undefined
@@ -137,7 +138,8 @@ eval (LetExp pairs body) env = undefined
 -- -------------------
 
 exec :: Stmt -> PEnv -> Env -> Result
-exec (PrintStmt e) penv env = undefined
+exec (PrintStmt e) penv env = (val, penv, env)
+    where val = show $ eval e env
 
 --- ### Set Statements
 

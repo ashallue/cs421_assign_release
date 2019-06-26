@@ -1,7 +1,7 @@
 MP2 - Interpreter
 =================
 
--   revision: 1.0
+-   revision: 2.0
 
 Objectives
 ==========
@@ -36,20 +36,15 @@ Getting Started
 Relevant Files
 --------------
 
-In the directory `app` you'll find `Main.hs` with all the relevant code. In this
+In the directory `src` you'll find `Lib.hs` with all the relevant code. In this
 file you will find all of the data definitions, the primitive function maps, the
-parser, the REPL itself, stubbed out lifting functions, and stubbed out
-evaluation functions. You are only responsible for making changes to the lifting
-and evaluation functions.
+parser, stubbed out lifting functions, and stubbed out evaluation functions. In
+the directory `app` you will find `Main.hs` which contains the code for a REPL
+of our language. You are only responsible for making changes to the lifting and 
+evaluation functions in `Lib.hs`.
 
 Running Code
 ------------
-
-As usual, you have to `stack init` (you only need to do this once):
-
-``` {.sh}
-$ stack init
-```
 
 To run your code, start GHCi with `stack ghci`. From here, you can test
 individual functions, or you can run the REPL by calling `main`:
@@ -90,13 +85,34 @@ As in MP1, you will be able to run the test-suite with `stack test`:
 $ stack test
 ```
 
-It will tell you which test-suites you pass, fail, and have exceptions on. To
-see an individual test-suite (so you can run the tests yourself by hand to see
-where the failure happens), look in the file `test/Tests.hs`.
+_HOWEVER_ since this MP has a substantially more complicated test spec,
+(look upon it with horror if you dare) We have included two ways of 
+running the tests. The first is
 
-It will also tell you whether you have passed enough of the tests to receive
-credit for the ML. If you do not pass 60% of the tests on the MP, you will not
-receive credit for the associated ML.
+```{.sh}
+$ stack test interpreter\:test\:friendly-test
+```
+
+This will run the tests (first unit tests, then property based tests on 
+randomly generated input) and output failures in a semi-readable manner.
+You should use this test-suite while solving the MP.
+
+The second way is
+
+```{.sh}
+$ stack test interpreter\:test\:grader-test
+```
+This is the test ultimately run by the grader on PrairieLearn.  It will 
+fail for a given exercise if any of the associated unit tests or property 
+tests fail. This will not give very readable output in case of failure.
+Use this test-suite only once you have finished the MP and you are ready
+to submit it. We have included these tests so you can see exactly what gets
+run by the grader.
+
+The friendly test spec can be found in `test/friendly/FriendlySpec.hs`
+The Unit tests are enumerated in `test/UnitTests.hs`.
+The property tests will most likely _not_ be helpful, but they are located
+in `test/PropertyTests.hs`. 
 
 Given Code
 ==========
